@@ -3,56 +3,42 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-    setup:
-        runs-on: ubuntu-latest
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [frontend, backend]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install UV
+        run: |
+          pip install uv
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+      - name: Install dependencies
+        run: make install SERVICE=${{ matrix.service }}
+      - name: Run lint
+        run: make lint SERVICE=${{ matrix.service }}
 
-        strategy:
-            matrix:
-                service: [frontend, backend]
-
-        steps:
-            - name: Install UV
-              run: |
-                pip install uv
-                export PATH="$HOME/.local/bin:$PATH"
-                
-            - name: Install Bun
-              run: |
-                curl -fsSL https://bun.sh/install | bash
-                export PATH="$HOME/.bun/bin:$PATH"
-
-            - name: Create venv
-              run: |
-                  python -m venv .venv
-
-    lint:
-        needs: setup
-        runs-on: ubuntu-latest
-
-        strategy:
-            matrix:
-                service: [frontend, backend]
-
-        steps:
-            - name: Check out code
-              uses: actions/checkout@v3
-
-            - name: Run lint for ${{ matrix.service }}
-              run: |
-                  make lint SERVICE=${{ matrix.service }}
-
-    test:
-        needs: lint
-        runs-on: ubuntu-latest
-
-        strategy:
-            matrix:
-                service: [frontend, backend]
-
-        steps:
-            - name: Check out code
-              uses: actions/checkout@v3
-
-            - name: Run tests for ${{ matrix.service }}
-              run: |
-                  make test SERVICE=${{ matrix.service }}
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [frontend, backend]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install UV
+        run: |
+          pip install uv
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+      - name: Install dependencies
+        run: make install SERVICE=${{ matrix.service }}
+      - name: Run tests
+        run: make test SERVICE=${{ matrix.service }}
