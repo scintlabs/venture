@@ -16,6 +16,7 @@ export interface UploadedFile {
     originalName: string
     content: string
     type: string
+    url: string
 }
 
 export interface ExecutiveSummary {
@@ -110,6 +111,7 @@ export interface Proposal {
     createdAt: string
     formData: FormData
     sections: ProposalSections
+    markdown: string
 }
 
 export interface ApiResponse {
