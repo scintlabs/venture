@@ -3,6 +3,18 @@ name: CI
 on: [push, pull_request]
 
 jobs:
+    setup:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                service: [frontend, backend]
+
+        steps:
+            - name: Setup bun
+              uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
     lint:
         runs-on: ubuntu-latest
 

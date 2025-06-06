@@ -11,4 +11,5 @@ dependencies = [
     "pdfminer.six",
     "openai",
     "ruff>=0.11.13",
+    "openai-agents>=0.0.17",
 ]
