@@ -198,7 +198,6 @@ async def get_proposal(proposal_id: str) -> Proposal:
 
 @app.get("/proposals/sample")
 async def get_sample_proposal() -> Proposal:
-    """Return a static sample proposal for testing."""
     sample_path = os.path.join(
         os.path.dirname(__file__), "data", "sample_proposal.json"
     )
