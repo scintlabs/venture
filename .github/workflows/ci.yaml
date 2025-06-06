@@ -1,4 +1,3 @@
-# .github/workflows/ci.yml
 name: CI
 
 on: [push, pull_request]
@@ -6,6 +5,7 @@ on: [push, pull_request]
 jobs:
     lint:
         runs-on: ubuntu-latest
+
         strategy:
             matrix:
                 service: [frontend, backend]
@@ -14,25 +14,15 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v3
 
-            - name: Lint ${{ matrix.service }}
+            - name: Run lint for ${{ matrix.service }}
               run: |
-                  if [ "${{ matrix.service }}" == "frontend" ]; then
-                    cd frontend
-                    bun i
-                    bun run lint
-                  else
-                    cd backend
-                    uv venv .venv
-                    source .venv/bin/activate
-                    uv pip install --editable .
-                    uv run pytest
-                    ruff check .
-                    ruff format .
-                  fi
+                  # Call the Makefile target for linting
+                  make lint SERVICE=${{ matrix.service }}
 
     test:
-        runs-on: ubuntu-latest
         needs: lint
+        runs-on: ubuntu-latest
+
         strategy:
             matrix:
                 service: [frontend, backend]
@@ -41,16 +31,7 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v3
 
-            - name: Test ${{ matrix.service }}
+            - name: Run tests for ${{ matrix.service }}
               run: |
-                  if [ "${{ matrix.service }}" == "frontend" ]; then
-                    cd frontend
-                    bun i
-                    bun run test
-                  else
-                    cd backend
-                    uv venv .venv
-                    source .venv/bin/activate
-                    uv pip install --editable .
-                    pytest -q
-                  fi
+                  # Call the Makefile target for testing
+                  make test SERVICE=${{ matrix.service }}

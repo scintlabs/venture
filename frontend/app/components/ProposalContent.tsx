@@ -10,15 +10,11 @@ export default function ProposalContent({ proposal }: ProposalContentProps) {
     const [isEditing, setIsEditing] = useState(false)
 
     const handleExportPDF = async () => {
-        // Implement PDF export logic
         window.print()
     }
 
     return (
         <div className="bg-gray-50 min-h-screen">
-            {/* Your existing proposal HTML structure goes here */}
-
-            {/* Cover Section */}
             <section className="bg-gradient-to-br from-blue-600 to-purple-700 text-white min-h-screen flex items-center relative overflow-hidden">
                 <div className="absolute top-4 right-4 text-sm opacity-80">
                     <div>{new Date(proposal.createdAt).toLocaleDateString()}</div>
@@ -93,9 +89,6 @@ export default function ProposalContent({ proposal }: ProposalContentProps) {
                 </section>
             )}
 
-            {/* Continue with other sections... */}
-
-            {/* Fixed Controls */}
             <div className="fixed bottom-4 right-4 space-x-2">
                 <button
                     onClick={() => setIsEditing(!isEditing)}
