@@ -1,7 +1,5 @@
-import { readFile } from "fs/promises"
-import path from "path"
 import { notFound } from "next/navigation"
-import { Proposal } from "@/types"
+import { Proposal } from "@/app/lib/types"
 import ProposalContent from "@/components/ProposalContent"
 
 interface ProposalPageProps {
@@ -10,11 +8,15 @@ interface ProposalPageProps {
     }
 }
 
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:8000'
+
 async function getProposal(id: string): Promise<Proposal | null> {
     try {
-        const filepath = path.join(process.cwd(), "proposals", `${id}.json`)
-        const data = await readFile(filepath, "utf-8")
-        return JSON.parse(data) as Proposal
+        const res = await fetch(`${BACKEND_URL}/proposals/${id}`)
+        if (!res.ok) {
+            return null
+        }
+        return (await res.json()) as Proposal
     } catch (error) {
         console.error("Error loading proposal:", error)
         return null
