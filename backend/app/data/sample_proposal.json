@@ -1,0 +1,99 @@
+{
+  "id": "sample-proposal",
+  "createdAt": "2024-03-01T00:00:00Z",
+  "formData": {
+    "projectName": "AI-Ready Knowledge Graph Platform",
+    "clientName": "Client",
+    "industry": "Enterprise",
+    "timeline": "90 days",
+    "budget": "$244k",
+    "objectives": "Unify data sources into knowledge graph",
+    "description": "Enterprise Data Intelligence Solution",
+    "stakeholders": null,
+    "requirements": null
+  },
+  "sections": {
+    "executiveSummary": {
+      "problem": "Enterprise data silos prevent AI initiatives from reaching their full potential, costing organizations millions in lost opportunities.",
+      "opportunity": "A unified knowledge graph platform can unlock 10x faster insights and enable truly intelligent automation across your organization.",
+      "solution": "Custom-built AI-ready platform with graph database core, intelligent APIs, and seamless integration capabilities delivered in 90 days.",
+      "metrics": {
+        "payback": "\u2264 6-month",
+        "savings": "$2.5M",
+        "timeline": "90 days"
+      }
+    },
+    "problemStatement": {
+      "challenges": [
+        "Data scattered across 15+ systems with no unified view",
+        "Manual data integration taking 40+ hours per analysis",
+        "AI models limited by incomplete data relationships"
+      ],
+      "quotes": [
+        {
+          "text": "We're sitting on a goldmine of data but can't mine it effectively. Our AI initiatives are stuck in pilot phase because we can't connect the dots across our systems.",
+          "author": "Chief Data Officer"
+        }
+      ],
+      "impactMetrics": {
+        "cost": "$5M",
+        "efficiency": "60%",
+        "competitive": "2 years"
+      }
+    },
+    "objectives": {
+      "objectives": [
+        "Unify Data Sources: Connect 15+ enterprise systems into single knowledge graph",
+        "Accelerate Insights: Reduce analysis time from 40+ hours to < 2 hours",
+        "Enable AI Excellence: Provide rich context for ML models"
+      ],
+      "kpis": [
+        { "metric": "Query Response Time", "target": "< 200ms", "status": "green" },
+        { "metric": "User Satisfaction (NPS)", "target": "+15 points", "status": "yellow" },
+        { "metric": "Data Integration Speed", "target": "95% faster", "status": "green" }
+      ]
+    },
+    "solution": {
+      "pillars": [
+        { "name": "Intelligent Core", "description": "Graph database with AI-powered relationship discovery and semantic understanding", "icon": "\ud83e\udde0" },
+        { "name": "Universal Connectors", "description": "Pre-built integrations for enterprise systems with real-time synchronization", "icon": "\ud83d\udd17" },
+        { "name": "Insight Engine", "description": "Natural language queries with automated insights and recommendation system", "icon": "\u26a1" }
+      ],
+      "techStrategy": "Custom-built AI-ready platform delivered in 90 days.",
+      "architecture": ["Frontend (React Dashboard)", "API Gateway (GraphQL/REST)", "Graph DB (Neo4j Cluster)"]
+    },
+    "timeline": {
+      "phases": [
+        { "name": "Discovery & Planning", "description": "Requirements gathering, system analysis", "duration": "Week 1-2", "deliverables": [] },
+        { "name": "Core Development", "description": "Graph database setup, API development", "duration": "Week 3-8", "deliverables": [] },
+        { "name": "Integration & Testing", "description": "System connections, performance testing", "duration": "Week 9-11", "deliverables": [] },
+        { "name": "Deployment & Launch", "description": "Production deployment, user training", "duration": "Week 12-13", "deliverables": [] }
+      ]
+    },
+    "team": {
+      "members": [
+        { "name": "Jane Doe", "role": "Technical Lead", "expertise": "Graph database expert with 10+ years experience", "initials": "JD" },
+        { "name": "Mike Smith", "role": "Full-Stack Developer", "expertise": "API architecture and frontend specialist", "initials": "MS" },
+        { "name": "Sarah Johnson", "role": "AI Engineer", "expertise": "Machine learning and natural language processing", "initials": "SJ" },
+        { "name": "Alex Brown", "role": "Project Manager", "expertise": "Agile delivery and stakeholder management", "initials": "AB" }
+      ]
+    },
+    "budget": {
+      "breakdown": [
+        { "category": "Development (720 hours)", "amount": 144000, "description": "" },
+        { "category": "Infrastructure & Licenses", "amount": 36000, "description": "" },
+        { "category": "Testing & QA", "amount": 24000, "description": "" },
+        { "category": "Project Management", "amount": 18000, "description": "" },
+        { "category": "Contingency (10%)", "amount": 22200, "description": "" }
+      ],
+      "total": 244200,
+      "paymentSchedule": [
+        { "milestone": "Project Kickoff", "percentage": 25, "amount": 61050, "timing": "Week 1" },
+        { "milestone": "MVP Delivery", "percentage": 30, "amount": 73260, "timing": "Week 6" },
+        { "milestone": "Beta Release", "percentage": 25, "amount": 61050, "timing": "Week 10" },
+        { "milestone": "Final Delivery", "percentage": 20, "amount": 48840, "timing": "Week 13" }
+      ]
+    }
+  },
+  "markdown": ""
+}

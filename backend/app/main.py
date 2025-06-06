@@ -17,6 +17,7 @@ except Exception:  # pragma: no cover
 try:
     from pdfminer.high_level import extract_text  # type: ignore
 except Exception:  # pragma: no cover
+
     def extract_text(_):
         return ""
 
@@ -72,7 +73,9 @@ class UploadResponse(BaseModel):
 
 
 @app.post("/files/upload")
-async def upload_files(files: List[UploadFile] = File(...)) -> Dict[str, UploadResponse]:
+async def upload_files(
+    files: List[UploadFile] = File(...),
+) -> Dict[str, UploadResponse]:
     if not files:
         raise HTTPException(status_code=400, detail="No files uploaded")
 
@@ -109,7 +112,10 @@ async def upload_files(files: List[UploadFile] = File(...)) -> Dict[str, UploadR
             )
         )
 
-    return {"success": True, "data": UploadResponse(fileIds=[u.id for u in uploaded], files=uploaded)}
+    return {
+        "success": True,
+        "data": UploadResponse(fileIds=[u.id for u in uploaded], files=uploaded),
+    }
 
 
 class GenerateRequest(FormData):
@@ -186,6 +192,17 @@ async def get_proposal(proposal_id: str) -> Proposal:
     if not os.path.exists(path):
         raise HTTPException(status_code=404, detail="Proposal not found")
     with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return Proposal(**data)
+
+
+@app.get("/proposals/sample")
+async def get_sample_proposal() -> Proposal:
+    """Return a static sample proposal for testing."""
+    sample_path = os.path.join(
+        os.path.dirname(__file__), "data", "sample_proposal.json"
+    )
+    with open(sample_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return Proposal(**data)
 
