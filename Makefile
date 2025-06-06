@@ -18,6 +18,11 @@ install:
 	                export PATH="$$HOME/.bun/bin:$$PATH" ; \
 	        fi && \
 	        bun i ; \
+		cd frontend && \
+		if ! command -v bun > /dev/null; then \
+		    curl -fsSL https://bun.sh/install | bash ; \
+        fi && \
+		bun i ; \
 	else \
 		$(MAKE) install SERVICE=backend ; \
 		$(MAKE) install SERVICE=frontend ; \

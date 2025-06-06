@@ -6,6 +6,7 @@ from typing import Dict, List, Optional
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 try:
@@ -33,6 +34,8 @@ PROPOSAL_DIR = os.path.join(os.getcwd(), "proposals")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(PROPOSAL_DIR, exist_ok=True)
 
+app.mount("/files", StaticFiles(directory=UPLOAD_DIR), name="files")
+
 
 class FormData(BaseModel):
     projectName: str
@@ -52,6 +55,7 @@ class UploadedFileModel(BaseModel):
     originalName: str
     content: str
     type: str
+    url: str
 
 
 class Proposal(BaseModel):
@@ -59,6 +63,7 @@ class Proposal(BaseModel):
     createdAt: str
     formData: FormData
     sections: Dict[str, dict]
+    markdown: str = ""
 
 
 class UploadResponse(BaseModel):
@@ -100,6 +105,7 @@ async def upload_files(files: List[UploadFile] = File(...)) -> Dict[str, UploadR
                 originalName=file.filename,
                 content=text,
                 type=file.content_type,
+                url=f"/files/{filename}",
             )
         )
 
@@ -161,6 +167,14 @@ async def generate_proposal(req: GenerateRequest) -> Dict[str, dict]:
                 "error": "Generation failed",
                 "fallback": f"Please manually complete the {key} section.",
             }
+
+    # build simple markdown representation
+    md_lines = [f"# {req.projectName}\n"]
+    for section_key, data in proposal.sections.items():
+        md_lines.append(f"## {section_key.replace('_', ' ').title()}\n")
+        md_lines.append(json.dumps(data, indent=2))
+        md_lines.append("")
+    proposal.markdown = "\n".join(md_lines)
 
     await save_proposal(proposal_id, proposal)
     return {"success": True, "data": {"proposalId": proposal_id}}

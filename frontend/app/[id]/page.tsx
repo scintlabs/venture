@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { Proposal } from "@/app/lib/types"
-import ProposalContent from "@/components/ProposalContent"
+import MarkdownRenderer from "@/components/MarkdownRenderer"
 
 interface ProposalPageProps {
     params: {
@@ -30,5 +30,5 @@ export default async function ProposalPage({ params }: ProposalPageProps) {
         notFound()
     }
 
-    return <ProposalContent proposal={proposal} />
+    return <MarkdownRenderer markdown={proposal.markdown} />
 }
