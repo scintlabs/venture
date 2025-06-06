@@ -2,12 +2,20 @@
 
 install:
 	if [ "$(SERVICE)" = "backend" ]; then \
+        if ! command -v uv > /dev/null; then \
+            pip install uv ; \
+        fi && \
+        if [ ! -d ".venv" ]; then \
+			uv venv .venv ; \
+		fi
 		cd backend && \
-		uv venv .venv && \
 		. .venv/bin/activate && \
-		uv pip install --editable . ; \
+		uv pip install -e . ; \
 	elif [ "$(SERVICE)" = "frontend" ]; then \
 		cd frontend && \
+		if ! command -v uv > /dev/null; then \
+		    curl -fsSL https://bun.sh/install | bash ; \
+        fi && \
 		bun i ; \
 	else \
 		$(MAKE) install SERVICE=backend ; \
@@ -26,7 +34,7 @@ dev-backend:
 dev-frontend:
 	@echo "Starting frontend..."
 	cd frontend && \
-		bun dev
+		bun run dev
 
 lint:
 	if [ "$(SERVICE)" = "backend" ]; then \
@@ -35,7 +43,7 @@ lint:
 			uv venv .venv ; \
 		fi && \
 		. .venv/bin/activate && \
-		uv pip install --editable . && \
+		uv pip install --e . && \
 		uv ruff check . && \
 		uv ruff format . ; \
 	elif [ "$(SERVICE)" = "frontend" ]; then \
