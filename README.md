@@ -25,3 +25,23 @@ Currently, Venture's MVP includes the core functionalities necessary for proposa
 ## Getting Started
 
 To start using Venture, simply create an account, input your project details, upload supporting documents, and generate your first proposal. Within minutes, you’ll have a professionally structured, client-ready document designed to impress and convert. Streamline your proposal workflow and focus on closing deals—let Venture handle the rest.
+
+## Local API Example
+
+Run the backend locally to experiment with the API:
+
+1. Install dependencies using `make install`.
+2. Start the server with `make dev-backend`.
+3. Browse to `http://localhost:8000/proposals/sample` to retrieve a sample proposal.
+
+The endpoint returns a JSON document illustrating the structure of generated proposals so you can test integrations before enabling full AI functionality.
+
+
+## Frontend Sample
+
+To preview the proposal design with stub data:
+
+1. In one terminal, run `make dev` to start both backend and frontend.
+2. Visit `http://localhost:3000/sample` in your browser.
+
+The page loads data from `/proposals/sample` and renders it with the React components.
