@@ -21,6 +21,7 @@ jobs:
                   python -m venv .venv
 
     lint:
+        needs: setup
         runs-on: ubuntu-latest
 
         strategy:
