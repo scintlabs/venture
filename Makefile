@@ -45,7 +45,7 @@ lint-backend:
 	if [ ! -d ".venv" ]; then \
 		uv venv; \
 	fi && \
-	source .venv/bin/activate. && \
+	source .venv/bin/activate && \
 	uv pip install -e . && \
 	ruff check . && \
 	ruff format .
