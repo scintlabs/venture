@@ -31,6 +31,9 @@ dev-frontend:
 lint:
 	if [ "$(SERVICE)" = "backend" ]; then \
 		cd backend && \
+		if [ ! -d ".venv" ]; then \
+			uv venv .venv ; \
+		fi && \
 		. .venv/bin/activate && \
 		uv pip install --editable . && \
 		uv ruff check . && \
