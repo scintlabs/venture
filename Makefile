@@ -13,7 +13,7 @@ install:
 		uv pip install -e . ; \
 	elif [ "$(SERVICE)" = "frontend" ]; then \
 		cd frontend && \
-		if ! command -v uv > /dev/null; then \
+		if ! command -v bun > /dev/null; then \
 		    curl -fsSL https://bun.sh/install | bash ; \
         fi && \
 		bun i ; \
