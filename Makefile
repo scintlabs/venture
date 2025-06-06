@@ -14,7 +14,7 @@ install-backend:
 	if [ ! -d ".venv" ]; then \
 		uv venv; \
 	fi && \
-	source .venv/bin/activate && \
+	. .venv/bin/activate && \
 	uv pip install -e .
 
 install-frontend:
@@ -31,7 +31,7 @@ dev: dev-backend dev-frontend
 dev-backend:
 	@echo "Starting backend..."
 	cd backend && \
-		source .venv/bin/activate && \
+		. .venv/bin/activate && \
 		uv run app/main.py
 
 dev-frontend:
@@ -45,7 +45,7 @@ lint-backend:
 	if [ ! -d ".venv" ]; then \
 		uv venv; \
 	fi && \
-	source .venv/bin/activate && \
+	. .venv/bin/activate && \
 	uv pip install -e . && \
 	ruff check . && \
 	ruff format .
@@ -59,7 +59,7 @@ test: test-backend test-frontend
 
 test-backend:
 	cd backend && \
-	source .venv/bin/activate && \
+	. .venv/bin/activate && \
 	uv pip install -e . && \
 	pytest -q || true
 
