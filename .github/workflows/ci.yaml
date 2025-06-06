@@ -15,6 +15,11 @@ jobs:
               uses: oven-sh/setup-bun@v2
               with:
                   bun-version: latest
+
+            - name: Create virtual environment
+              run: |
+                  python -m venv .venv
+
     lint:
         runs-on: ubuntu-latest
 
@@ -28,7 +33,6 @@ jobs:
 
             - name: Run lint for ${{ matrix.service }}
               run: |
-                  # Call the Makefile target for linting
                   make lint SERVICE=${{ matrix.service }}
 
     test:
@@ -45,5 +49,4 @@ jobs:
 
             - name: Run tests for ${{ matrix.service }}
               run: |
-                  # Call the Makefile target for testing
                   make test SERVICE=${{ matrix.service }}
