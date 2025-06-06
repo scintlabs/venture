@@ -1,0 +1,56 @@
+# .github/workflows/ci.yml
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                service: [frontend, backend]
+
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v3
+
+            - name: Lint ${{ matrix.service }}
+              run: |
+                  if [ "${{ matrix.service }}" == "frontend" ]; then
+                    cd frontend
+                    bun i
+                    bun run lint
+                  else
+                    cd backend
+                    uv venv .venv
+                    source .venv/bin/activate
+                    uv pip install --editable .
+                    uv run pytest
+                    ruff check .
+                    ruff format .
+                  fi
+
+    test:
+        runs-on: ubuntu-latest
+        needs: lint
+        strategy:
+            matrix:
+                service: [frontend, backend]
+
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v3
+
+            - name: Test ${{ matrix.service }}
+              run: |
+                  if [ "${{ matrix.service }}" == "frontend" ]; then
+                    cd frontend
+                    bun i
+                    bun run test
+                  else
+                    cd backend
+                    uv venv .venv
+                    source .venv/bin/activate
+                    uv pip install --editable .
+                    pytest -q
+                  fi
