@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { Proposal } from "@/app/lib/types"
-import MarkdownRenderer from "@/components/MarkdownRenderer"
+import MarkdownRenderer from "@/app/components/MarkdownRenderer"
 
 interface ProposalPageProps {
     params: {
