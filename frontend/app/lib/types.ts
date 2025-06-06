@@ -43,9 +43,66 @@ export interface ProblemStatement {
     }
 }
 
+export interface Objectives {
+    objectives: string[]
+    kpis: Array<{
+        metric: string
+        target: string
+        status: "green" | "yellow" | "red"
+    }>
+}
+
+export interface SolutionOverview {
+    pillars: Array<{
+        name: string
+        description: string
+        icon: string
+    }>
+    techStrategy: string
+    architecture: string[]
+}
+
+export interface Timeline {
+    phases: Array<{
+        name: string
+        description: string
+        duration: string
+        deliverables: string[]
+    }>
+}
+
+export interface Team {
+    members: Array<{
+        name: string
+        role: string
+        expertise: string
+        initials: string
+    }>
+}
+
+export interface Budget {
+    breakdown: Array<{
+        category: string
+        amount: number
+        description: string
+    }>
+    total: number
+    paymentSchedule: Array<{
+        milestone: string
+        percentage: number
+        amount: number
+        timing: string
+    }>
+}
+
 export interface ProposalSections {
     executiveSummary: ExecutiveSummary
     problemStatement: ProblemStatement
+    objectives?: Objectives
+    solution?: SolutionOverview
+    timeline?: Timeline
+    team?: Team
+    budget?: Budget
 }
 
 export interface Proposal {
